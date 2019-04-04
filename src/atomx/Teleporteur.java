@@ -9,6 +9,20 @@ package atomx;
  *
  * @author yann
  */
-public class Teleporteur {
+public class Teleporteur extends Obstacle{
+     public Teleporteur(int p){
+        super(p);
+        this.nom = "T";
+        this.p = null;
+    }
     
+    @Override
+    public void action(Particule p){
+        
+    }
+    
+    @Override
+    public String toString() {
+        return "Prison{" +super.toString()+ '}';
+    }
 }

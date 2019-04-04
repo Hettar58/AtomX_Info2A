@@ -9,6 +9,21 @@ package atomx;
  *
  * @author yann
  */
-public class Prison {
+public class Prison extends Obstacle{
+    public Prison(int p){
+        super(p);
+        this.nom = "P";
+        this.p = null;
+    }
+    
+    @Override
+    public void action(Particule p){
+        
+    }
+
+    @Override
+    public String toString() {
+        return "Prison{" +super.toString()+ '}';
+    }
     
 }

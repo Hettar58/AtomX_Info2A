@@ -9,6 +9,20 @@ package atomx;
  *
  * @author yann
  */
-public class Deviateur {
+public class Deviateur extends Obstacle{
+    public Deviateur(int p){
+        super(p);
+        this.nom = "D";
+        this.p = null;
+    }
     
+    @Override
+    public void action(Particule p){
+        
+    }
+    
+    @Override
+    public String toString() {
+        return "Prison{" +super.toString()+ '}';
+    }
 }
