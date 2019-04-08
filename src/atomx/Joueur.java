@@ -65,5 +65,40 @@ public class Joueur {
         return "Joueur{" + "credit=" + credit + ", pseudo=" + pseudo + '}';
     }
     
-    public 
+   public void Lancer(){
+       boolean continuer = false;
+       char bord;
+       int poids;
+       do{
+            System.out.println("Entrez le bord sur lequel vous voulez que la particules soit lancer");
+            bord = Lire.c();
+            System.out.println("Entrez le poids de la particule sachant que vous avez "+credit+ " crédits restants");
+            poids = Lire.i();
+            if ((bord == 'H' || bord == 'B' || bord == 'G' || bord == 'D') && poids <= credit){
+                continuer = true;
+            }
+       }while(continuer == false);
+       
+       Position pos = new Position(0, 0);
+       
+       System.out.println("Entrez le numero de la case d'ou partira la particule");
+       int case_ = Lire.i();
+       
+       if (bord == 'H'){
+           pos.setY(0);
+           pos.setX(case_);
+       }
+       if (bord == 'B'){
+           pos.setY(Jeu.jeuCourant.getTaille());
+           pos.setX(case_);
+       }
+       if (bord == 'G'){
+           pos.setX(0);
+           pos.setY(case_);
+       }
+       if (bord == 'D'){
+           pos.setX(Jeu.jeuCourant.getTaille());
+           pos.setY(case_);
+       }
+   }
 }

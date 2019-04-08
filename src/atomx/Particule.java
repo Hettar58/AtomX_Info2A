@@ -63,6 +63,14 @@ public class Particule {
         this.active = true;
         this.move = true;
     }
+    
+    public Particule (int poids){
+        this.pos = null;
+        this.dir = null;
+        this.poids = poids;
+        this.active = false;
+        this.move = false;
+    }
 
     @Override
     public String toString() {

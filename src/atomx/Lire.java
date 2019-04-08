@@ -1,3 +1,6 @@
+package atomx;
+
+
 import java.io.*;
 public class Lire
 {
