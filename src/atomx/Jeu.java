@@ -93,6 +93,7 @@ public class Jeu {
         this.creditInit = creditInit;
         this.joueurs = new ArrayList<Joueur>();
         this.plateau = new Obstacle[taille][taille];
+        
     }
 
     @Override
@@ -100,6 +101,22 @@ public class Jeu {
         return "Jeu{" + "taille=" + taille + ", nbObstacles=" + nbObstacles + ", poidsMax=" + poidsMax + ", creditInit=" + creditInit + ", joueurs=" + joueurs + ", plateau=" + plateau + ", p=" + p + '}';
     }
     
+    public Obstacle getCase(int x, int y){
+        if (x >= 0 && x < taille && y >= 0 && y < taille){
+            if (plateau[x][y] != null){
+                return plateau[x][y];
+            }
+            else{
+                return null;
+            }
+        }
+        else{
+            return null;
+        }
+    }
     
     
+    public void removeCase(int x, int y){
+        plateau[x][y]=null;
+    }
 }

@@ -14,8 +14,8 @@ abstract class Obstacle {
     protected Particule p;
     protected String nom;
     
-    public Obstacle(int p){
-        this.poids = p;
+    public Obstacle(int pMax){
+        this.poids  = (int)(1 + (pMax-1) * Math.random());
     }
 
     abstract void action(Particule p);
@@ -24,4 +24,30 @@ abstract class Obstacle {
     public String toString() {
         return "Obstacle{" + "poids=" + poids + ", p=" + p + ", nom=" + nom + '}';
     }
+
+    public int getPoids() {
+        return poids;
+    }
+
+    public void setPoids(int poids) {
+        this.poids = poids;
+    }
+
+    public Particule getP() {
+        return p;
+    }
+
+    public void setP(Particule p) {
+        this.p = p;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+    
+    
 }

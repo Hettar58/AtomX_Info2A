@@ -10,19 +10,26 @@ package atomx;
  * @author yann
  */
 public class Teleporteur extends Obstacle{
-     public Teleporteur(int p){
-        super(p);
+    private Position destination;
+    private int initX;
+    private int initY;
+    
+    public Teleporteur(int pMax){
+        super(pMax);
         this.nom = "T";
         this.p = null;
+        this.initX =(int)(1+(Jeu.jeuCourant.getTaille() -1) * Math.random());
+        this.initY =(int)(1+(Jeu.jeuCourant.getTaille() -1) * Math.random());
+        destination = new Position(initX, initY);
     }
     
     @Override
     public void action(Particule p){
-        
+        p.setPos(destination);
     }
-    
+
     @Override
     public String toString() {
-        return "Prison{" +super.toString()+ '}';
+        return "Teleporteur{" + "destination=" + destination + '}';
     }
 }

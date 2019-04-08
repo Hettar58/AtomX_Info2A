@@ -10,15 +10,21 @@ package atomx;
  * @author yann
  */
 public class Prison extends Obstacle{
-    public Prison(int p){
-        super(p);
+    public Prison(int pMax){
+        super(pMax);
         this.nom = "P";
         this.p = null;
     }
     
     @Override
-    public void action(Particule p){
-        
+    public void action(Particule p_in){
+        if (p_in.getPoids() >= this.poids){
+            p_in.setMove(false);
+            if (this.p != null){
+                this.p.setMove(true);
+            }
+            this.p = p_in;
+        }
     }
 
     @Override

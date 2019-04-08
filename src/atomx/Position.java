@@ -71,7 +71,25 @@ public class Position {
         }
     }
     
-    public Direction getDir(){
-       
+    public Direction getDir(int taille){
+       if (isBord(taille) == true){
+           Direction dir = new Direction(0,0);
+           if (x == 0){
+               dir.setX(1);
+           }else{
+               dir.setX(-1);
+           }
+           
+           if(y == 0){
+               dir.setY(1);
+           }
+           else{
+               dir.setY(-1);
+           }
+           return dir;
+       }
+       else{
+           return null; 
+       }
     }
 }
