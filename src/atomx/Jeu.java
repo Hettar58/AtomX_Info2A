@@ -20,7 +20,10 @@ public class Jeu {
     private ArrayList<Joueur> joueurs;
     private Obstacle[][] plateau;
     public static Jeu jeuCourant;
+<<<<<<< Updated upstream
     private Particule p;
+=======
+>>>>>>> Stashed changes
 
     public int getTaille() {
         return taille;
@@ -78,6 +81,7 @@ public class Jeu {
         Jeu.jeuCourant = jeuCourant;
     }
     
+<<<<<<< Updated upstream
     public Particule getP() {
         return p;
     }
@@ -119,4 +123,7 @@ public class Jeu {
     public void removeCase(int x, int y){
         plateau[x][y]=null;
     }
+=======
+    
+>>>>>>> Stashed changes
 }
