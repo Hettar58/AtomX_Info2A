@@ -10,20 +10,21 @@ package atomx;
  * @author yann
  */
 public class Deviateur extends Obstacle{
+    private int rotations;
     public Deviateur(int pMax){
         super(pMax);
         this.nom = "D";
         this.p = null;
+        this.rotations = (int)(1+(2 * Math.random()));
     }
     
     @Override
     public void action(Particule p){
-        int rotations = (int)(1+(2 * Math.random()));
         p.setDir(p.getDir().getRotation(rotations));
     }
 
     @Override
     public String toString() {
-        return "Deviateur{" + '}';
+        return "Deviateur{"+super.toString()+ "rotations=" + rotations + '}';
     }
 }

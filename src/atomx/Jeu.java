@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -17,10 +17,11 @@ public class Jeu {
     private int nbObstacles;
     private int poidsMax;
     private double creditInit;
-    private ArrayList<Joueur> joueurs;
+    private Joueur j;
     private Obstacle[][] plateau;
-    public static Jeu jeuCourant;
+    private static Jeu jeuCourant;
     private Particule p;
+    
 
     public int getTaille() {
         return taille;
@@ -54,12 +55,12 @@ public class Jeu {
         this.creditInit = creditInit;
     }
 
-    public ArrayList<Joueur> getJoueurs() {
-        return joueurs;
+    public Joueur getJ() {
+        return j;
     }
 
-    public void setJoueurs(ArrayList<Joueur> joueurs) {
-        this.joueurs = joueurs;
+    public void setJ(Joueur j) {
+        this.j = j;
     }
 
     public Obstacle[][] getPlateau() {
@@ -67,7 +68,7 @@ public class Jeu {
     }
 
     public void setPlateau(Obstacle[][] plateau) {
-        this.plateau = plateau;
+        this.setPlateau(plateau);
     }
 
     public static Jeu getJeuCourant() {
@@ -91,20 +92,32 @@ public class Jeu {
         this.nbObstacles = nbObstacles;
         this.poidsMax = poidsMax;
         this.creditInit = creditInit;
-        this.joueurs = new ArrayList<Joueur>();
         this.plateau = new Obstacle[taille][taille];
+        jeuCourant = this;
+        initJoueur();
+        initJeu();
+        visuPlateau();
         
     }
 
     @Override
     public String toString() {
-        return "Jeu{" + "taille=" + taille + ", nbObstacles=" + nbObstacles + ", poidsMax=" + poidsMax + ", creditInit=" + creditInit + ", joueurs=" + joueurs + ", plateau=" + plateau + ", p=" + p + '}';
+        return "Jeu{" + "taille=" + getTaille() + ", nbObstacles=" + getNbObstacles() + ", poidsMax=" + getPoidsMax() + ", creditInit=" + getCreditInit() + ", joueur=" + j + ", plateau=" + getPlateau() + ", p=" + getP() + '}';
+    }
+    
+    public void visuPlateau(){
+        for (int i =0; i < taille; i ++){
+            for (int j = 0; j < taille; j++){
+                System.out.print(plateau[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
     
     public Obstacle getCase(int x, int y){
-        if (x >= 0 && x < taille && y >= 0 && y < taille){
-            if (plateau[x][y] != null){
-                return plateau[x][y];
+        if (x >= 0 && x < getTaille() && y >= 0 && y < getTaille()){
+            if (getPlateau()[x][y] != null){
+                return getPlateau()[x][y];
             }
             else{
                 return null;
@@ -117,6 +130,40 @@ public class Jeu {
     
     
     public void removeCase(int x, int y){
-        plateau[x][y]=null;
+        getPlateau()[x][y]=null;
+    }
+    
+    public void initJeu(){
+        setNbObstacles((int) (1 + (getTaille() - 1) * Math.random()));
+        
+        int i = 0;
+        while (i < getNbObstacles()){
+            Obstacle o = null;
+            
+            int type = (int)(1+(100-1) * Math.random());
+            int pMax = (int)(1+(poidsMax - 1) * Math.random());
+            int x = (int)(getTaille() * Math.random());
+            int y = (int)(getTaille() * Math.random());
+            
+            if (type < 33){
+                o = new Prison(pMax);
+            }
+            if (type > 33 && type < 66){
+                o = new Deviateur(pMax);
+            }
+            if (type > 66){
+                o = new Teleporteur(pMax);
+            }
+            
+            getPlateau()[x][y] = o;
+            i++;
+        }
+    }
+    
+    public void initJoueur(){
+        String pseudo;
+        System.out.println("Entrez votre pseudo");
+        pseudo = Lire.S();
+        setJ(new Joueur(getCreditInit(), pseudo));
     }
 }

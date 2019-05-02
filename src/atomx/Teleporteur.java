@@ -18,8 +18,8 @@ public class Teleporteur extends Obstacle{
         super(pMax);
         this.nom = "T";
         this.p = null;
-        this.initX =(int)(1+(Jeu.jeuCourant.getTaille() -1) * Math.random());
-        this.initY =(int)(1+(Jeu.jeuCourant.getTaille() -1) * Math.random());
+        this.initX =(int)(1+(Jeu.getJeuCourant().getTaille() -1) * Math.random());
+        this.initY =(int)(1+(Jeu.getJeuCourant().getTaille() -1) * Math.random());
         destination = new Position(initX, initY);
     }
     
@@ -30,6 +30,6 @@ public class Teleporteur extends Obstacle{
 
     @Override
     public String toString() {
-        return "Teleporteur{" + "destination=" + destination + '}';
+        return "Teleporteur{"+super.toString() + "destination=" + destination + '}';
     }
 }

@@ -89,7 +89,7 @@ public class Joueur {
            pos.setX(case_);
        }
        if (bord == 'B'){
-           pos.setY(Jeu.jeuCourant.getTaille());
+           pos.setY(Jeu.getJeuCourant().getTaille());
            pos.setX(case_);
        }
        if (bord == 'G'){
@@ -97,7 +97,7 @@ public class Joueur {
            pos.setY(case_);
        }
        if (bord == 'D'){
-           pos.setX(Jeu.jeuCourant.getTaille());
+           pos.setX(Jeu.getJeuCourant().getTaille());
            pos.setY(case_);
        }
    }

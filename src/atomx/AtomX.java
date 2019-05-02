@@ -15,7 +15,11 @@ public class AtomX {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        int taille = 5;
+        int nbObstacles = 5;
+        int pMax = 5;
+        int credit = 20;
+        Jeu j = new Jeu(taille, nbObstacles, pMax, credit);
     }
     
 }
