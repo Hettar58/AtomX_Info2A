@@ -19,17 +19,14 @@ public class Jeu {
     private double creditInit;
     private Joueur j;
     private Obstacle[][] plateau;
-<<<<<<< HEAD
+
     private static Jeu jeuCourant;
     private Particule p;
     
-=======
     public static Jeu jeuCourant;
-<<<<<<< Updated upstream
+
     private Particule p;
-=======
->>>>>>> Stashed changes
->>>>>>> master
+
 
     public int getTaille() {
         return taille;
@@ -87,7 +84,7 @@ public class Jeu {
         Jeu.jeuCourant = jeuCourant;
     }
     
-<<<<<<< Updated upstream
+
     public Particule getP() {
         return p;
     }
@@ -175,7 +172,5 @@ public class Jeu {
         pseudo = Lire.S();
         setJ(new Joueur(getCreditInit(), pseudo));
     }
-=======
-    
->>>>>>> Stashed changes
+
 }
