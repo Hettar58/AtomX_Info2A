@@ -18,13 +18,15 @@ public class Teleporteur extends Obstacle{
         super(pMax);
         this.nom = "T";
         this.p = null;
-        this.initX =(int)(1+(Jeu.getJeuCourant().getTaille() -1) * Math.random());
-        this.initY =(int)(1+(Jeu.getJeuCourant().getTaille() -1) * Math.random());
+        this.initX =(int)(1+(Jeu.getJeuCourant().getTaille()-1) * Math.random());
+        this.initY =(int)(1+(Jeu.getJeuCourant().getTaille()-1) * Math.random());
         destination = new Position(initX, initY);
     }
     
     @Override
     public void action(Particule p){
+        System.out.println("Teleporation");
+        System.out.println("==> "+destination.getX() +", "+ destination.getY());
         p.setPos(destination);
     }
 

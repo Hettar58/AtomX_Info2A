@@ -36,25 +36,30 @@ public class Joueur {
 
     public void Hypothese(){
         boolean continuer = true;
+        System.out.println("");
+        System.out.println("Entrez une hypothèse pour un obstacle.");
         while (continuer == true){
-            System.out.println("Entrez la position X");
+            System.out.print("Entrez la position X: ");
             int x = Lire.i();
-            System.out.println("Entrez la position Y");
+            System.out.print("Entrez la position Y: ");
             int y = Lire.i();
-            System.out.println("Entrez le type d'obstacle");
+            System.out.print("Entrez le type d'obstacle: ");
             String type = Lire.S();
             if (Jeu.getJeuCourant().getCase(x, y) != null){
                 if (Jeu.getJeuCourant().getCase(x, y).getNom().equals(type)){
                     this.credit += Jeu.getJeuCourant().getCase(x,y).getPoids();
                     Jeu.getJeuCourant().removeCase(x,y);
                     continuer = true;
+                    System.out.println("Vous avez trouvé juste ! Vous pouvez retenter votre chance.");
                 }
                 else{
                     continuer = false;
+                    System.out.println("Votre hypothèse est fausse !");
                 }
             }
             else{
                 continuer = false;
+                System.out.println("Votre hypothèse est fausse !");
             }
         }
         
@@ -65,23 +70,20 @@ public class Joueur {
         return "Joueur{" + "credit=" + credit + ", pseudo=" + pseudo + '}';
     }
     
-   public void Lancer(){
+   public Position Lancer(){
        boolean continuer = false;
        char bord;
-       int poids;
        do{
-            System.out.println("Entrez le bord sur lequel vous voulez que la particules soit lancer");
+            System.out.print("Entrez le bord sur lequel vous voulez que la particule soit lancée: ");
             bord = Lire.c();
-            System.out.println("Entrez le poids de la particule sachant que vous avez "+credit+ " crédits restants");
-            poids = Lire.i();
-            if ((bord == 'H' || bord == 'B' || bord == 'G' || bord == 'D') && poids <= credit){
+            if ((bord == 'H' || bord == 'B' || bord == 'G' || bord == 'D')){
                 continuer = true;
             }
        }while(continuer == false);
        
        Position pos = new Position(0, 0);
        
-       System.out.println("Entrez le numero de la case d'ou partira la particule");
+       System.out.print("Entrez le numero de la case d'ou partira la particule: ");
        int case_ = Lire.i();
        
        if (bord == 'H'){
@@ -100,5 +102,7 @@ public class Joueur {
            pos.setX(Jeu.getJeuCourant().getTaille());
            pos.setY(case_);
        }
+       
+       return pos;
    }
 }

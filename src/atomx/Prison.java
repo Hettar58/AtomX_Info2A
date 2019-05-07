@@ -18,10 +18,11 @@ public class Prison extends Obstacle{
     
     @Override
     public void action(Particule p_in){
+        System.out.println("Prison");
         if (p_in.getPoids() >= this.poids){
-            p_in.setMove(false);
+            p_in.getPos().setMove(false);
             if (this.p != null){
-                this.p.setMove(true);
+                this.p.getPos().setMove(true);
             }
             this.p = p_in;
         }

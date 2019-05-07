@@ -15,12 +15,15 @@ public class Deviateur extends Obstacle{
         super(pMax);
         this.nom = "D";
         this.p = null;
-        this.rotations = (int)(1+(2 * Math.random()));
+        //this.rotations = (int)(1+(2 * Math.random()));
+        this.rotations = 2;
     }
     
     @Override
     public void action(Particule p){
+        System.out.println("Deviation");
         p.setDir(p.getDir().getRotation(rotations));
+        System.out.println("==> "+rotations+" tours, direction:"+p.getDir());
     }
 
     @Override

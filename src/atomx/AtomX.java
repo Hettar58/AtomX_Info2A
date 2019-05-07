@@ -16,10 +16,10 @@ public class AtomX {
      */
     public static void main(String[] args) {
         int taille = 5;
-        int nbObstacles = 5;
+        int nbObstacles = 8;
         int pMax = 5;
         int credit = 20;
-        Jeu j = new Jeu(taille, nbObstacles, pMax, credit);
+        boolean debug = true;
+        Jeu j = new Jeu(taille, nbObstacles, pMax, credit, debug);
     }
-    
 }

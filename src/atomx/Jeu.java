@@ -6,7 +6,6 @@
 package atomx;
 
 import com.sun.istack.internal.NotNull;
-import java.util.ArrayList;
 
 /**
  *
@@ -22,11 +21,6 @@ public class Jeu {
 
     private static Jeu jeuCourant;
     private Particule p;
-    
-    public static Jeu jeuCourant;
-
-    private Particule p;
-
 
     public int getTaille() {
         return taille;
@@ -93,7 +87,7 @@ public class Jeu {
         this.p = p;
     }
 
-    public Jeu(@NotNull int taille, @NotNull int nbObstacles, @NotNull int poidsMax, @NotNull double creditInit) {
+    public Jeu(@NotNull int taille, @NotNull int nbObstacles, @NotNull int poidsMax, @NotNull double creditInit, boolean debug) {
         this.taille = taille;
         this.nbObstacles = nbObstacles;
         this.poidsMax = poidsMax;
@@ -101,9 +95,15 @@ public class Jeu {
         this.plateau = new Obstacle[taille][taille];
         jeuCourant = this;
         initJoueur();
-        initJeu();
+        if (debug == false){
+            initJeu();
+        }
+        else{
+            plateau[1][0] = new Deviateur(1);
+        }
         visuPlateau();
-        
+        System.out.println();
+        Tour();
     }
 
     @Override
@@ -114,7 +114,7 @@ public class Jeu {
     public void visuPlateau(){
         for (int i =0; i < taille; i ++){
             for (int j = 0; j < taille; j++){
-                System.out.print(plateau[i][j] + " ");
+                System.out.print(plateau[j][i] + "_("+j+" "+i+") ");
             }
             System.out.println();
         }
@@ -168,9 +168,57 @@ public class Jeu {
     
     public void initJoueur(){
         String pseudo;
-        System.out.println("Entrez votre pseudo");
+        System.out.print("Entrez votre pseudo: ");
         pseudo = Lire.S();
         setJ(new Joueur(getCreditInit(), pseudo));
     }
-
+    
+    public void Tour(){
+        int poids;
+        do{
+            System.out.print("Entrez le poids de la particule sachant que vous avez "+j.getCredit()+ " crédits restants: ");
+            poids = Lire.i();
+        }while(!(j.getCredit() >= poids));
+        
+        Position pos = j.Lancer();
+        
+        p = new Particule(pos, pos.getDir(taille), poids);
+        j.setCredit(j.getCredit() - poids);
+        System.out.println(p.getPos().toString());
+        System.out.println(p.getDir().toString());
+        System.out.println();
+        
+        do{
+            
+            if (getCase(p.getPos().getX(), p.getPos().getY()) != null){
+                System.out.println("Contact !");
+                getCase(p.getPos().getX(), p.getPos().getY()).action(p);
+                //System.out.println(plateau[p.getPos().getX()][p.getPos().getY()].toString());
+            }
+            
+            p.setPos(p.getPos().getSuivante(p.getDir(), taille));
+            
+            System.out.println(p.getPos().toString());
+            
+        }while (p.getPos().isDedans(taille) && p.getPos().isMove() && p.isActive());
+        
+        p.setActive(false);
+        
+        if (p.getPos().isMove()){
+            System.out.println("La particule est sortie en X="+p.getPos().getX()+", Y="+p.getPos().getY());
+            j.setCredit(j.getCredit()+p.getPoids());
+            p = null;
+        }
+        else{
+            System.out.println("La particule n'est pas sortie");
+        }
+        
+        j.Hypothese();
+        if (j.getCredit() > 0){
+            Tour();
+        }
+        else{
+            System.out.println("Vous avez perdu !");
+        }
+    }
 }

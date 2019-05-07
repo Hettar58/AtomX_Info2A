@@ -14,7 +14,6 @@ public class Particule {
     private Direction dir;
     private int poids;
     private boolean active;
-    private boolean move;
 
     public Position getPos() {
         return pos;
@@ -48,20 +47,12 @@ public class Particule {
         this.active = active;
     }
 
-    public boolean isMove() {
-        return move;
-    }
-
-    public void setMove(boolean move) {
-        this.move = move;
-    }
-
     public Particule(Position pos, Direction dir, int poids) {
         this.pos = pos;
         this.dir = dir;
         this.poids = poids;
         this.active = true;
-        this.move = true;
+
     }
     
     public Particule (int poids){
@@ -69,13 +60,11 @@ public class Particule {
         this.dir = null;
         this.poids = poids;
         this.active = false;
-        this.move = false;
+
     }
 
     @Override
     public String toString() {
-        return "Particule{" + "pos=" + pos + ", dir=" + dir + ", poids=" + poids + ", active=" + active + ", move=" + move + '}';
+        return "Particule{" + "pos=" + pos + ", dir=" + dir + ", poids=" + poids + ", active=" + active + '}';
     }
-    
-   
 }

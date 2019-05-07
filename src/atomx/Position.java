@@ -12,7 +12,8 @@ package atomx;
 public class Position {
     private int x;
     private int y;
-
+    private boolean move;
+    
     public int getX() {
         return x;
     }
@@ -32,39 +33,43 @@ public class Position {
     public Position(int x, int y) {
         this.x = x;
         this.y = y;
+        this.move = true;
     }
 
-    @Override
-    public String toString() {
-        return "Position{" + "x=" + x + ", y=" + y + '}';
+    public boolean isMove() {
+        return move;
+    }
+
+    public void setMove(boolean move) {
+        this.move = move;
     }
     
-    public Position getSuivante(Direction d){
-        return new Position(x + d.getX(), y + d.getY());
+    @Override
+    public String toString() {
+        return "Position{" + "x=" + x + ", y=" + y +", move="+move+'}';
+    }
+    
+    public Position getSuivante(Direction d, int taille){
+        if (move == true){
+            return new Position(x + d.getX(), y + d.getY());
+        }
+        else{
+            return this;
+        }
     }
     
     public boolean isBord(int taille){
-        if (x == 0 || x == taille){
-            if (y == 0 || y == taille){
-                return true;
-            }
-            else {
-                return false;
-            }
+        if (x == 0 || x == taille || y == 0 || y == taille){
+            return true;
         }
         else{
             return false;
         }
     }
-    
+     
     public boolean isDedans(int taille){
-        if (x != 0 && x != taille){
-            if (y != 0 && y != taille){
-                return true;
-            }
-            else {
-                return false;
-            }
+        if (x > 0 && x < taille && y > 0 && y < taille){
+            return true;
         }
         else{
             return false;
@@ -76,16 +81,22 @@ public class Position {
            Direction dir = new Direction(0,0);
            if (x == 0){
                dir.setX(1);
-           }else{
+               dir.setY(0);
+           }
+           if (x == taille){
                dir.setX(-1);
+               dir.setY(0);
            }
            
            if(y == 0){
                dir.setY(1);
+               dir.setX(0);
            }
-           else{
+           if(y == taille){
                dir.setY(-1);
+               dir.setX(0);
            }
+           
            return dir;
        }
        else{
