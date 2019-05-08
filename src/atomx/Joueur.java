@@ -50,7 +50,7 @@ public class Joueur {
                     this.credit += Jeu.getJeuCourant().getCase(x,y).getPoids();
                     Jeu.getJeuCourant().removeCase(x,y);
                     continuer = true;
-                    System.out.println("Vous avez trouvé juste ! Vous pouvez retenter votre chance.");
+                    System.out.println("Vous avez trouvé un obstacle ! Vous pouvez retenter votre chance s'il reste des obstacles sur le plateau.");
                 }
                 else{
                     continuer = false;
@@ -60,6 +60,10 @@ public class Joueur {
             else{
                 continuer = false;
                 System.out.println("Votre hypothèse est fausse !");
+            }
+            if(Jeu.getJeuCourant().checkWin() == true){
+                System.out.println("Vous avez gagné !");
+                continuer = false;
             }
         }
         
@@ -81,7 +85,7 @@ public class Joueur {
             }
        }while(continuer == false);
        
-       Position pos = new Position(0, 0);
+       Position pos = new Position(0, 0, 0);
        
        System.out.print("Entrez le numero de la case d'ou partira la particule: ");
        int case_ = Lire.i();
@@ -89,18 +93,22 @@ public class Joueur {
        if (bord == 'H'){
            pos.setY(0);
            pos.setX(case_);
+           pos.setDirection(2);
        }
        if (bord == 'B'){
            pos.setY(Jeu.getJeuCourant().getTaille());
            pos.setX(case_);
+           pos.setDirection(1);
        }
        if (bord == 'G'){
            pos.setX(0);
            pos.setY(case_);
+           pos.setDirection(4);
        }
        if (bord == 'D'){
            pos.setX(Jeu.getJeuCourant().getTaille());
            pos.setY(case_);
+           pos.setDirection(3);
        }
        
        return pos;

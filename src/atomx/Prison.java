@@ -23,6 +23,10 @@ public class Prison extends Obstacle{
             p_in.getPos().setMove(false);
             if (this.p != null){
                 this.p.getPos().setMove(true);
+                Jeu.getJeuCourant().setP(this.p);
+                if(Jeu.getJeuCourant().isDebug()){
+                    System.out.println("Changement de particule active");
+                }
             }
             this.p = p_in;
         }

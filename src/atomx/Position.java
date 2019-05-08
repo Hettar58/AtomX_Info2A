@@ -13,6 +13,7 @@ public class Position {
     private int x;
     private int y;
     private boolean move;
+    private int direction;
     
     public int getX() {
         return x;
@@ -30,12 +31,26 @@ public class Position {
         this.y = y;
     }
 
-    public Position(int x, int y) {
+    public Position(int x, int y, int direction) {
+        //direction = 1 ==> vers le haut
+        //direction = 2 ==> vers le bas
+        //direction = 3 ==> vers la gauche
+        //direction = 4 ==> vers la droite
+        //direction = 0 ==> point mort
         this.x = x;
         this.y = y;
         this.move = true;
+        this.direction = direction;
     }
 
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+    
     public boolean isMove() {
         return move;
     }
@@ -51,7 +66,7 @@ public class Position {
     
     public Position getSuivante(Direction d, int taille){
         if (move == true){
-            return new Position(x + d.getX(), y + d.getY());
+            return new Position(x + d.getX(), y + d.getY(), direction);
         }
         else{
             return this;
@@ -59,7 +74,8 @@ public class Position {
     }
     
     public boolean isBord(int taille){
-        if (x == 0 || x == taille || y == 0 || y == taille){
+        
+        if (x == -1 || x == taille || y == -1 || y == taille){
             return true;
         }
         else{
@@ -68,7 +84,7 @@ public class Position {
     }
      
     public boolean isDedans(int taille){
-        if (x > 0 && x < taille && y > 0 && y < taille){
+        if (x >= 0 && x < taille && y >= 0 && y < taille){
             return true;
         }
         else{
@@ -77,30 +93,23 @@ public class Position {
     }
     
     public Direction getDir(int taille){
-       if (isBord(taille) == true){
-           Direction dir = new Direction(0,0);
-           if (x == 0){
-               dir.setX(1);
-               dir.setY(0);
-           }
-           if (x == taille){
-               dir.setX(-1);
-               dir.setY(0);
-           }
-           
-           if(y == 0){
-               dir.setY(1);
-               dir.setX(0);
-           }
-           if(y == taille){
-               dir.setY(-1);
-               dir.setX(0);
-           }
-           
-           return dir;
-       }
-       else{
-           return null; 
-       }
+        Direction dir = new Direction(0,0);
+        if (direction == 1){ //vers le haut
+            dir.setX(0);
+            dir.setY(-1);
+        }
+        if (direction == 2){ // vers le bas
+            dir.setX(0);
+            dir.setY(1);
+        }
+        if(direction == 3){ // vers la gauche
+            dir.setX(-1);
+            dir.setY(0);
+        }
+        if(direction == 4){ // vers la droite
+            dir.setX(1);
+            dir.setY(0);
+        }
+        return dir;
     }
 }

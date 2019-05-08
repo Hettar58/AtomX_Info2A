@@ -18,6 +18,7 @@ public class Jeu {
     private double creditInit;
     private Joueur j;
     private Obstacle[][] plateau;
+    private boolean debug;
 
     private static Jeu jeuCourant;
     private Particule p;
@@ -87,6 +88,14 @@ public class Jeu {
         this.p = p;
     }
 
+    public boolean isDebug() {
+        return debug;
+    }
+
+    public void setDebug(boolean debug) {
+        this.debug = debug;
+    }
+
     public Jeu(@NotNull int taille, @NotNull int nbObstacles, @NotNull int poidsMax, @NotNull double creditInit, boolean debug) {
         this.taille = taille;
         this.nbObstacles = nbObstacles;
@@ -95,14 +104,18 @@ public class Jeu {
         this.plateau = new Obstacle[taille][taille];
         jeuCourant = this;
         initJoueur();
+        this.debug = debug;
         if (debug == false){
             initJeu();
         }
         else{
-            plateau[1][0] = new Deviateur(1);
+            plateau[1][1] = new Deviateur(1);
+            plateau[1][0] = new Prison(1);
+            plateau[0][1] = new Teleporteur(1);
+            visuPlateau();
+            System.out.println();
         }
-        visuPlateau();
-        System.out.println();
+        
         Tour();
     }
 
@@ -181,24 +194,25 @@ public class Jeu {
         }while(!(j.getCredit() >= poids));
         
         Position pos = j.Lancer();
-        
         p = new Particule(pos, pos.getDir(taille), poids);
         j.setCredit(j.getCredit() - poids);
-        System.out.println(p.getPos().toString());
-        System.out.println(p.getDir().toString());
-        System.out.println();
+        if (debug == true){
+            System.out.println(p.getPos().toString());
+            System.out.println(p.getDir().toString());
+            System.out.println();
+        }
         
         do{
             
             if (getCase(p.getPos().getX(), p.getPos().getY()) != null){
-                System.out.println("Contact !");
+                if (debug == true){System.out.println("Contact !");}
                 getCase(p.getPos().getX(), p.getPos().getY()).action(p);
                 //System.out.println(plateau[p.getPos().getX()][p.getPos().getY()].toString());
             }
             
             p.setPos(p.getPos().getSuivante(p.getDir(), taille));
             
-            System.out.println(p.getPos().toString());
+            if (debug == true){System.out.println(p.getPos().toString());}
             
         }while (p.getPos().isDedans(taille) && p.getPos().isMove() && p.isActive());
         
@@ -214,11 +228,26 @@ public class Jeu {
         }
         
         j.Hypothese();
-        if (j.getCredit() > 0){
+        if (j.getCredit() > 0 && checkWin() == false){
             Tour();
         }
         else{
-            System.out.println("Vous avez perdu !");
+            if (j.getCredit() <= 0){
+                System.out.println("Vous avez perdu !");
+            }
+            
         }
+    }
+    
+    public boolean checkWin(){
+        boolean win = true;
+        for (int i = 0; i < taille; i++){
+            for (int j = 0; j < taille; j++){
+                if (plateau[i][j] != null){
+                    win = false;
+                }
+            }
+        }
+        return win;
     }
 }
