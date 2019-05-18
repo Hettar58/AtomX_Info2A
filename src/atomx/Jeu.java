@@ -207,7 +207,6 @@ public class Jeu {
             if (getCase(p.getPos().getX(), p.getPos().getY()) != null){
                 if (debug == true){System.out.println("Contact !");}
                 getCase(p.getPos().getX(), p.getPos().getY()).action(p);
-                //System.out.println(plateau[p.getPos().getX()][p.getPos().getY()].toString());
             }
             
             p.setPos(p.getPos().getSuivante(p.getDir(), taille));

@@ -18,13 +18,14 @@ public class Prison extends Obstacle{
     
     @Override
     public void action(Particule p_in){
-        System.out.println("Prison");
+        
         if (p_in.getPoids() >= this.poids){
             p_in.getPos().setMove(false);
             if (this.p != null){
                 this.p.getPos().setMove(true);
                 Jeu.getJeuCourant().setP(this.p);
                 if(Jeu.getJeuCourant().isDebug()){
+                    System.out.println("Prison");
                     System.out.println("Changement de particule active");
                 }
             }
