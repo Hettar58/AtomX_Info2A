@@ -5,8 +5,6 @@
  */
 package atomx;
 
-import com.sun.istack.internal.NotNull;
-
 /**
  *
  * @author yann
@@ -96,7 +94,7 @@ public class Jeu {
         this.debug = debug;
     }
 
-    public Jeu(@NotNull int taille, @NotNull int nbObstacles, @NotNull int poidsMax, @NotNull double creditInit, boolean debug) {
+    public Jeu(int taille,  int nbObstacles,  int poidsMax,  double creditInit, boolean debug) {
         this.taille = taille;
         this.nbObstacles = nbObstacles;
         this.poidsMax = poidsMax;

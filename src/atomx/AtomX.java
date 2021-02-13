@@ -19,7 +19,7 @@ public class AtomX {
         int nbObstacles = 8;
         int pMax = 5;
         int credit = 20;
-        boolean debug = true;
+        boolean debug = false;
         Jeu j = new Jeu(taille, nbObstacles, pMax, credit, debug);
     }
 }
